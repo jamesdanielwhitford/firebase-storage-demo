@@ -1,3 +1,10 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .App {
   text-align: center;
 }
@@ -37,13 +44,105 @@
   }
 }
 
-.pdf-container {
+.landing-container {
   display: flex;
-  overflow-x: scroll;
-  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  scroll-snap-align: start; /* Add this line */
 }
 
-.pdf-page {
-  margin-right: 10px;
+/* ... (existing styles) */
+
+.display-container {
+  width: 100%;
 }
+
+.category-section {
+  width: 100%;
+}
+
+.category-header {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.category-header, .media-item {
+  scroll-snap-align: start; /* This will make the start (top) of each section the snap point */
+}
+
+.media-item {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Default styles for larger screens */
+img, video {
+  width: auto;        /* Maintain the original width */
+  max-width: 100%;    /* Ensures the width doesn't exceed the container width */
+  height: auto;       /* Maintain the original height */
+  min-height: 50vh;   /* Minimum height of 50% of the viewport height */
+  max-height: 80vh;   /* Maximum height of 80% of the viewport height */
+}
+
+iframe {
+  width: auto;        /* Maintain the original width */
+  max-width: 100%;    /* Ensures the width doesn't exceed the container width */
+  height: auto;  
+  min-height: 80vh;   /* Minimum height of 80% of the viewport height */
+  max-height: 80vh;
+  min-width: 33vw;    /* Minimum width of 33% of the viewport width */
+}
+
+/* Adjustments for tablet screens */
+@media (max-width: 1024px) and (min-width: 769px) {
+  img, video {
+    min-height: 40vh; /* Adjust the minimum height for tablet screens */
+  }
+  iframe {
+    min-height: 70vh; /* Adjust the minimum height for tablet screens */
+    min-width: 30vw;  /* Adjust the minimum width for tablet screens */
+  }
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+  img, video {
+    min-height: 30vh; /* Adjust the minimum height for smaller screens */
+  }
+  iframe {
+    min-height: 60vh; /* Adjust the minimum height for smaller screens */
+    min-width: 28vw;  /* Adjust the minimum width for smaller screens */
+  }
+}
+
+/* Adjustments for very small screens */
+@media (max-width: 480px) {
+  img, video {
+    min-height: 20vh; /* Adjust the minimum height for very small screens */
+  }
+  iframe {
+    min-height: 50vh; /* Adjust the minimum height for very small screens */
+    min-width: 25vw;  /* Adjust the minimum width for very small screens */
+  }
+}
+
+
+
+.app-container {
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll; /* Ensures scrolling is possible */
+  scroll-snap-type: y mandatory; /* This means the vertical scrolling will snap to the boundaries of its children */
+}
+
+
 
