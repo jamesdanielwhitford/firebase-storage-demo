@@ -20,20 +20,26 @@ function Display() {
         Music: []
       };
 
+      const promises = [];
+
       for (let category of categories) {
         for (let type of types) {
-          const items = await storage.ref(`${category}/${type}s`).listAll();
-          for (let item of items.items) {
-            const url = await item.getDownloadURL();
-            result[category].push({ url, type });
-          }
+          const promise = storage.ref(`${category}/${type}s`).listAll().then(items => {
+            const itemPromises = items.items.map(item => item.getDownloadURL().then(url => {
+              result[category].push({ url, type });
+            }));
+            return Promise.all(itemPromises);
+          });
+          promises.push(promise);
         }
       }
 
+      await Promise.all(promises);
       setFiles(result);
     };
     fetchFiles();
   }, []);
+
 
   const renderFile = (file) => {
     switch (file.type) {
@@ -63,12 +69,12 @@ function Display() {
   };
 
   return (
-    <div>
+    <div className="display-container">
       {Object.keys(files).map((category) => (
-        <div key={category}>
-          <h2>{category}</h2>
+        <div key={category} className="category-section">
+          <h2 className="category-header">{category}</h2>
           {files[category].map((file, index) => (
-            <div key={index}>{renderFile(file)}</div>
+            <div key={index} className="media-item">{renderFile(file)}</div>
           ))}
         </div>
       ))}
