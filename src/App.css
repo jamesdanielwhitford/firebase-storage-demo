@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.pdf-container {
+  display: flex;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.pdf-page {
+  margin-right: 10px;
+}
+
