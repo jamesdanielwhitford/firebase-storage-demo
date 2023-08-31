@@ -48,27 +48,30 @@ function Display() {
 
   const renderFile = (file) => {
     return (
-      <div>
-        {file.date && <p>Date: {new Date(file.date.seconds * 1000).toLocaleDateString()}</p>}
-        {file.description && <p>Description: {file.description}</p>}
-        {file.location && <p>Location: <a href={`https://www.google.com/maps?q=${file.location.lat},${file.location.lng}`} target="_blank" rel="noopener noreferrer">Co-ordinates</a></p>}
-        <a href={file.url} target="_blank" rel="noopener noreferrer">Open file</a>
-        <br />
-        {file.type === 'jpeg' || file.type === 'png' ? (
-          <img src={file.url} alt="Uploaded content" width="100" />
-        ) : file.type === 'mp4' || file.type === 'mpeg' ? (
-          <video width="320" height="240" controls>
-            <source src={file.url} type={`video/${file.type}`} />
-            Your browser does not support the video tag.
-          </video>
-        ) : file.type === 'pdf' ? (
-          <iframe
-            src={file.url}
-            width="100%"
-            height="500px"
-            title="Uploaded PDF"
-          ></iframe>
-        ) : null}
+      <div className="media-wrapper">
+        <div className="media-metadata">
+          {file.date && <p>Date: {new Date(file.date.seconds * 1000).toLocaleDateString()}</p>}
+          {file.description && <p>Description: {file.description}</p>}
+          {file.location && <p>Location: <a href={`https://www.google.com/maps?q=${file.location.lat},${file.location.lng}`} target="_blank" rel="noopener noreferrer">Co-ordinates</a></p>}
+          <a href={file.url} target="_blank" rel="noopener noreferrer">Open file</a>
+        </div>
+        <div className="media-content">
+          {file.type === 'jpeg' || file.type === 'png' ? (
+            <img src={file.url} alt="Uploaded content" width="100" />
+          ) : file.type === 'mp4' || file.type === 'mpeg' ? (
+            <video width="320" height="240" controls>
+              <source src={file.url} type={`video/${file.type}`} />
+              Your browser does not support the video tag.
+            </video>
+          ) : file.type === 'pdf' ? (
+            <iframe
+              src={file.url}
+              width="100%"
+              height="500px"
+              title="Uploaded PDF"
+            ></iframe>
+          ) : null}
+        </div>
       </div>
     );
   };
