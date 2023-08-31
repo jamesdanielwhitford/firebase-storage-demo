@@ -1,18 +1,20 @@
 import firebase from 'firebase/app';
 import 'firebase/storage';
+import 'firebase/firestore';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDnVdKNpUTf-6rN1OBfc6_4Yx5lpsLsVG4",
-    authDomain: "portfolio-79f24.firebaseapp.com",
-    projectId: "portfolio-79f24",
-    storageBucket: "portfolio-79f24.appspot.com",
-    messagingSenderId: "248452412061",
-    appId: "1:248452412061:web:0fed216e01a029c69b5a74",
-    measurementId: "G-DZV7NMDJYF"
-  };
+    apiKey: "AIzaSyDg3OyiiDuoP79Df0b8yNqijepkoMNsbK8",
+    authDomain: "test-37ab7.firebaseapp.com",
+    projectId: "test-37ab7",
+    storageBucket: "test-37ab7.appspot.com",
+    messagingSenderId: "727395954037",
+    appId: "1:727395954037:web:a7b5d59e5fae65a8e1373c",
+    measurementId: "G-XFSNZ17BRW"
+};
 
 firebase.initializeApp(firebaseConfig);
 
 const storage = firebase.storage();
+const firestore = firebase.firestore();
 
-export { storage, firebase as default };
+export { storage, firestore };

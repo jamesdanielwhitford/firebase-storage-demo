@@ -99,7 +99,7 @@ iframe {
   height: auto;  
   min-height: 80vh;   /* Minimum height of 80% of the viewport height */
   max-height: 80vh;
-  min-width: 33vw;    /* Minimum width of 33% of the viewport width */
+  min-width: 60vw;    /* Minimum width of 33% of the viewport width */
 }
 
 /* Adjustments for tablet screens */
@@ -109,7 +109,7 @@ iframe {
   }
   iframe {
     min-height: 70vh; /* Adjust the minimum height for tablet screens */
-    min-width: 30vw;  /* Adjust the minimum width for tablet screens */
+    min-width: 60vw;  /* Adjust the minimum width for tablet screens */
   }
 }
 
@@ -120,7 +120,7 @@ iframe {
   }
   iframe {
     min-height: 60vh; /* Adjust the minimum height for smaller screens */
-    min-width: 28vw;  /* Adjust the minimum width for smaller screens */
+    min-width: 60vw;  /* Adjust the minimum width for smaller screens */
   }
 }
 
@@ -131,7 +131,7 @@ iframe {
   }
   iframe {
     min-height: 50vh; /* Adjust the minimum height for very small screens */
-    min-width: 25vw;  /* Adjust the minimum width for very small screens */
+    min-width: 60vw;  /* Adjust the minimum width for very small screens */
   }
 }
 

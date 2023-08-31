@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { storage } from './firebase';
+import { storage, firestore } from './firebase';
 
 function Upload() {
   const [file, setFile] = useState(null);

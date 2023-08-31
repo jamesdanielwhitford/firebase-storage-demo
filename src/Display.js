@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { storage } from './firebase';
+import { storage, firestore } from './firebase';
 
 function Display() {
   const [files, setFiles] = useState({
@@ -24,10 +24,16 @@ function Display() {
 
       for (let category of categories) {
         for (let type of types) {
-          const promise = storage.ref(`${category}/${type}s`).listAll().then(items => {
-            const itemPromises = items.items.map(item => item.getDownloadURL().then(url => {
-              result[category].push({ url, type });
-            }));
+          const promise = storage.ref(`${category}/${type}s`).listAll().then(async items => {
+            const itemPromises = items.items.map(async item => {
+              const url = await item.getDownloadURL();
+              const docId = item.name.split('_')[0]; // Extract the document ID from the file name
+              const docRef = firestore.collection('media').doc(docId);
+              const docData = await docRef.get();
+              if (docData.exists) {
+                result[category].push({ ...docData.data(), url, type });
+              }
+            });
             return Promise.all(itemPromises);
           });
           promises.push(promise);
@@ -40,32 +46,31 @@ function Display() {
     fetchFiles();
   }, []);
 
-
   const renderFile = (file) => {
-    switch (file.type) {
-      case 'jpeg':
-      case 'png':
-        return <img src={file.url} alt="Uploaded content" width="100" />;
-      case 'mp4':
-      case 'mpeg':
-        return (
+    return (
+      <div>
+        {file.date && <p>Date: {new Date(file.date.seconds * 1000).toLocaleDateString()}</p>}
+        {file.description && <p>Description: {file.description}</p>}
+        {file.location && <p>Location: <a href={`https://www.google.com/maps?q=${file.location.lat},${file.location.lng}`} target="_blank" rel="noopener noreferrer">Co-ordinates</a></p>}
+        <a href={file.url} target="_blank" rel="noopener noreferrer">Open file</a>
+        <br />
+        {file.type === 'jpeg' || file.type === 'png' ? (
+          <img src={file.url} alt="Uploaded content" width="100" />
+        ) : file.type === 'mp4' || file.type === 'mpeg' ? (
           <video width="320" height="240" controls>
             <source src={file.url} type={`video/${file.type}`} />
             Your browser does not support the video tag.
           </video>
-        );
-      case 'pdf':
-        return (
+        ) : file.type === 'pdf' ? (
           <iframe
             src={file.url}
             width="100%"
             height="500px"
             title="Uploaded PDF"
           ></iframe>
-        );
-      default:
-        return null;
-    }
+        ) : null}
+      </div>
+    );
   };
 
   return (
